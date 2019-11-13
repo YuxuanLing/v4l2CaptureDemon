@@ -12,10 +12,12 @@ scons -Q
 
 # two example, first store captured raw data into files , second you can see video directlly
 
-##capture 1280x720 420p yuv 150 frames into file
+#capture 1280x720 420p yuv 150 frames into file
+
 ./cam_capture_store_example      
 
-##capture and render it
+#capture and render it
+
 ./cam_capture_demon
 
 
