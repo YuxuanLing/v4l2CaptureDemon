@@ -12,7 +12,7 @@ extern "C" {
 #include "frame.h"
 #include <glib-2.0/glib.h>
 
-//#define DEBUG 1
+#define DEBUG 1
 
 ///
 /// Version information
