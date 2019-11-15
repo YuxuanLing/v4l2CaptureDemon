@@ -13,6 +13,7 @@ scons -Q
 # two example, first store captured raw data into files , second you can see video directlly
 
 #capture 640x360 420p yuv 150 frames into file
+
 #you can use cmd play: "ffplay -loop 3 -f rawvideo -video_size 640*360 -pixel_format yuv420p -framerate 24 snapshot.yuv" 
 
 ./cam_capture_store_example      
