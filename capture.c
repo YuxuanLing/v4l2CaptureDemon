@@ -422,6 +422,7 @@ fg_grabber *fg_open(fg_grabber* fg, const char *dev)
     fg->format.type = V4L2_BUF_TYPE_VIDEO_CAPTURE; 
     fg->format.fmt.pix.width = FG_DEFAULT_WIDTH;
     fg->format.fmt.pix.height = FG_DEFAULT_HEIGHT;
+    
     // libv4l should intervene here to support this format even if the device does not support it directly , 
     //such as RGB24 and YUV420P, so we can try select some resolution and format to set this, if it not returen error, then ok
     fg->format.fmt.pix.pixelformat = FG_FORMAT_DEFAULT;      //FG_FORMAT_YUV420;
@@ -472,6 +473,19 @@ fg_grabber *fg_open(fg_grabber* fg, const char *dev)
            cam_cap->pixel_height = frmsize.discrete.height;
            strncpy(cam_cap->description, fmt.description, 32);
            g_list_append(fg->camera_caps_list, cam_cap);
+           
+		   //following is a wrok around to add yuv420 format, since libv4l should intervene here to support this format even if the device does not support it directly
+           //so if it supported YUYV , then assume it will also support 420p
+           if(fmt.pixelformat == V4L2_PIX_FMT_YUYV) {
+			   fg_camera_cap *cam_cap_420p = g_new(fg_camera_cap, 1);
+			   cam_cap_420p->pixel_format = V4L2_PIX_FMT_YUV420;
+			   cam_cap_420p->pixel_with	 = frmsize.discrete.width;
+			   cam_cap_420p->pixel_height = frmsize.discrete.height;
+			   strncpy(cam_cap_420p->description, "IYUV 4:2:0", 32);
+			   g_list_append(fg->camera_caps_list, cam_cap_420p);
+           }
+          
+			
 		}
 	
 	}

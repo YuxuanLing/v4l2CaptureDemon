@@ -62,8 +62,8 @@ int main(int argc, char *argv[])
 	
     FG_CLEAR(fmt_set);
     fmt_set.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-    fmt_set.fmt.pix.width = 1280;
-    fmt_set.fmt.pix.height = 720;
+    fmt_set.fmt.pix.width = FG_DEFAULT_WIDTH;
+    fmt_set.fmt.pix.height = FG_DEFAULT_HEIGHT;
     fmt_set.fmt.pix.pixelformat = FG_FORMAT_YUV420; //FG_FORMAT_YUYV;
     fmt_set.fmt.pix.field = V4L2_FIELD_INTERLACED;
 
@@ -99,6 +99,7 @@ int main(int argc, char *argv[])
           printf("fg_grab failed\n");
         }else {
 			fg_frame_save(fr, rawDumpFile);
+          printf("success to save %4d frames \n", i+1);
         } 		
 
     }
